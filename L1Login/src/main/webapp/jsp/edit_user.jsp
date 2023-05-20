@@ -16,7 +16,7 @@
             <form action="update" method="post">
         </c:if>
         <c:if test="${user == null || isNotLogged}">
-            <form action="<%=request.getContextPath()%>/user/signup" method="post">
+            <form action="<%=request.getContextPath()%>/signup" method="post">
         </c:if>
         <div class ="text-center">
             <caption>

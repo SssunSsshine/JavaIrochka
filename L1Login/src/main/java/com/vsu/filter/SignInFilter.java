@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-@WebFilter("/*")
+@WebFilter(urlPatterns = {"/movie/*", "/user/*","/login","/"})
 public class SignInFilter implements Filter {
 
     @Override
@@ -20,17 +20,13 @@ public class SignInFilter implements Filter {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         HttpSession session = httpServletRequest.getSession();
-
-        String contextPath = httpServletRequest.getContextPath();
-        String loginURI = contextPath + "/login";
-        Set<String> uris = new HashSet<>(Arrays.asList(loginURI, contextPath + "/new", contextPath + "/user/signup", contextPath + "/sign-in"));
+        String loginURI = httpServletRequest.getContextPath() + "/login";
         boolean loginRequest = httpServletRequest.getRequestURI().equals(loginURI);
-
         User user = (User) session.getAttribute("user");
         if (loginRequest && user != null) {
             httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/user/page");
             return;
-        } else if (!uris.contains(httpServletRequest.getRequestURI()) && user == null) {
+        } else if (!loginRequest && user == null) {
             httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/login");
             return;
         }

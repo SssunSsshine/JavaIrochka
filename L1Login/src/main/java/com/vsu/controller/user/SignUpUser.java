@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebServlet("/user/signup")
+@WebServlet("/signup")
 public class SignUpUser extends HttpServlet {
     private static final String JSP_PATH = "/jsp/";
     private UserService userService;
